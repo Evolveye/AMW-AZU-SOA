@@ -14,7 +14,7 @@ public class HelloServiceEndpoint {
     public SayHiRes sayHi(@RequestPayload SayHiReq sayHiReq) {
         var res = new SayHiRes();
 
-        res.setName(sayHiReq.getName());
+        res.setName("Witaj: " + sayHiReq.getName());
 
         return res;
     }
