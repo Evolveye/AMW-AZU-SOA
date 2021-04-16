@@ -12,12 +12,58 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	jaxb
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'wsdl4j:wsdl4j'
+
+	jaxb("org.glassfish.jaxb:jaxb-xjc")
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+bootJar {
+	archiveBaseName = 'gs-producing-web-service'
+	archiveVersion =  '0.1.0'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+			srcDir 'build/generated-sources/jaxb'
+		}
+	}
+}
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.schema = "src/main/resources/schema.xsd"
+
+	outputs.dir sourcesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+
+			xjc(destdir: sourcesDir, schema: schema) {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir, includes: "**/*.java")
+			}
+		}
+	}
+}
+
+compileJava.dependsOn genJaxb
