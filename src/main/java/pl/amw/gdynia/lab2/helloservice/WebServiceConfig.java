@@ -28,6 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("HiPort");
         wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://helloservice.lab2.gdynia.amw.pl");
         wsdl11Definition.setSchema(schema);
 
         return wsdl11Definition;

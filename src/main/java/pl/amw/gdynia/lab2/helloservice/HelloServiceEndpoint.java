@@ -9,12 +9,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class HelloServiceEndpoint {
     private static final String NAMESPACE_URI = "http://helloservice.lab2.gdynia.amw.pl";
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "sayHiReq")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "sayHiRequest")
     @ResponsePayload
-    public SayHiRes sayHi(@RequestPayload SayHiReq sayHiReq) {
-        var res = new SayHiRes();
+    public SayHiResponse sayHi(@RequestPayload SayHiRequest sayHiRequest) {
+        var res = new SayHiResponse();
 
-        res.setName("Witaj: " + sayHiReq.getName());
+        res.setName("Witaj: " + sayHiRequest.getName());
 
         return res;
     }

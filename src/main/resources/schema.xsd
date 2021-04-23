@@ -1,9 +1,10 @@
 <xs:schema
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://helloservice.lab2.gdynia.amw.pl"
+        elementFormDefault="qualified"
 >
 
-    <xs:element name="sayHiReq">
+    <xs:element name="sayHiRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="name" type="xs:string" />
@@ -11,7 +12,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="sayHiRes">
+    <xs:element name="sayHiResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="name" type="xs:string" />
