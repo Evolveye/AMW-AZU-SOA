@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="2f07df27-e495-41c7-86cf-e293b3e871d1" activeEnvironment="Default" name="Lab4" resourceRoot="" soapui-version="5.6.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="63ec62fe-37dc-4769-93d9-e5a493088139" wsaVersion="NONE" name="hiNamePortSoap11" type="wsdl" bindingName="{pl.amw.gdynia.lab2}hiNamePortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ws/hiName.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ws/hiName.wsdl"><con:part><con:url>http://localhost:8080/ws/hiName.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="pl.amw.gdynia.lab2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="pl.amw.gdynia.lab2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="pl.amw.gdynia.lab2">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="pl.amw.gdynia.lab2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getNameRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getNameResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sayHello" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getNameResponse">
+    <wsdl:part element="tns:getNameResponse" name="getNameResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getNameRequest">
+    <wsdl:part element="tns:getNameRequest" name="getNameRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="hiNamePort">
+    <wsdl:operation name="getName">
+      <wsdl:input message="tns:getNameRequest" name="getNameRequest"></wsdl:input>
+      <wsdl:output message="tns:getNameResponse" name="getNameResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="hiNamePortSoap11" type="tns:hiNamePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getName">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getNameRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="hiNamePortService">
+    <wsdl:port binding="tns:hiNamePortSoap11" name="hiNamePortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://DESKTOP-TUVD6QP:8088/mockhiNamePortSoap11</con:endpoint><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="962175cb-7a4b-4c64-b066-fde854749b57" isOneWay="false" action="" name="getName" bindingOperationName="getName" type="Request-Response" outputName="getNameResponse" inputName="getNameRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="859bf06f-7f9c-42d0-995f-9c88477b6eab" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://DESKTOP-TUVD6QP:8088/mockhiNamePortSoap11</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pl="pl.amw.gdynia.lab2">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <pl:getNameRequest>\r
+         <pl:name>?</pl:name>\r
+      </pl:getNameRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="pl.amw.gdynia.lab2/hiNamePort/getNameRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="6f647105-1f34-4f53-ba55-622b74adf357" port="8088" path="/mockhiNamePortSoap11" host="DESKTOP-TUVD6QP" name="hiNamePortSoap11 MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="getName" id="72678f63-804d-4622-a854-4ac6eea6d832" interface="hiNamePortSoap11" operation="getName"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="0dafdca2-3790-41e0-98c5-c72039ed537a" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pl="pl.amw.gdynia.lab2">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pl:getNameResponse>
+         <pl:sayHello>Daniel</pl:sayHello>
+      </pl:getNameResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="pl.amw.gdynia.lab2/hiNamePort/getNameResponse"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
