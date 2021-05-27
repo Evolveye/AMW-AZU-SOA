@@ -15,18 +15,20 @@ public class ApiCommunicator {
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
 
+    private ApiResponse lastApiResponse;
+
     public ApiCommunicator() throws ParserConfigurationException, IOException, SAXException {
         this.factory = DocumentBuilderFactory.newInstance();
         this.builder = factory.newDocumentBuilder();
 
-        ApiResponse apiResponse = new ApiResponse(this.fetchApi());
-
-//        for (Exchange exchange : apiResponse.getExchanges()) {
-//            System.out.println("Last date: " + exchange.getTime() + " | Rate PL: " + exchange.getRateByCurrency("PLN").getRate());
-//        }
+        this.lastApiResponse = new ApiResponse(this.fetchApi());
     }
 
     public Document fetchApi() throws IOException, SAXException {
         return builder.parse(API_URI);
+    }
+
+    public ApiResponse getLastApiResponse() {
+        return this.lastApiResponse;
     }
 }

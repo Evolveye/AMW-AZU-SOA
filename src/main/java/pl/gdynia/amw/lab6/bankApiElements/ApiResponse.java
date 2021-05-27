@@ -6,11 +6,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ApiResponse {
     private String subject;
     private String sender;
-    private ArrayList exchanges = new ArrayList<Exchange>();
+    private ArrayList<Exchange> exchanges = new ArrayList<>();
 
     public ApiResponse(Document apiResponse) {
         this.parseResponse(apiResponse);
@@ -45,6 +46,7 @@ public class ApiResponse {
 
                         this.exchanges.add(new Exchange((Element) exchangeNode));
                     }
+
                     break;
             }
         }
@@ -60,5 +62,17 @@ public class ApiResponse {
 
     public ArrayList<Exchange> getExchanges() {
         return this.exchanges;
+    }
+
+    public Exchange getExchange(Date date) {
+        for (Exchange exchange : this.exchanges) {
+            if (exchange.getTime() == date) return exchange;
+        }
+
+        return null;
+    }
+
+    public Exchange getLastExchange() {
+        return this.exchanges.get(0);
     }
 }
