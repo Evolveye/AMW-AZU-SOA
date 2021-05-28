@@ -2,12 +2,15 @@ package pl.gdynia.amw.lab6;
 
 import pl.gdynia.amw.lab6.model.Rate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ExchangeCalculator {
-    public float calculateExchange(Rate rateFrom, Rate rateTo) {
-        return rateTo.getRate() / rateFrom.getRate();
+    public BigDecimal calculateExchange(Rate rateFrom, Rate rateTo) {
+        return rateTo.getRate().divide( rateFrom.getRate(), RoundingMode.UP);
     }
 
-    public float calculateExchange(Rate rate) {
+    public BigDecimal calculateExchange(Rate rate) {
         return rate.getRate();
     }
 }

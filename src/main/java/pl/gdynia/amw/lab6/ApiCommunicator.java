@@ -12,13 +12,12 @@ import java.io.IOException;
 public class ApiCommunicator {
     // application.properties
     private static final String API_URI = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml?bcd0938de3675ce9631d23856979fd68";
-    private DocumentBuilderFactory factory;
-    private DocumentBuilder builder;
+    private final DocumentBuilder builder;
 
-    private EcbResponse lastApiResponse;
+    private final EcbResponse lastApiResponse;
 
     public ApiCommunicator() throws ParserConfigurationException, IOException, SAXException {
-        this.factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         this.builder = factory.newDocumentBuilder();
 
         this.lastApiResponse = new EcbResponse(this.fetchApi());

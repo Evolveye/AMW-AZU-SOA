@@ -9,16 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EcbResponse {
-    private String subject;
-    private String sender;
-    private ArrayList<Exchange> exchanges = new ArrayList<>();
+    private final String subject;
+    private final String sender;
+    private final ArrayList<Exchange> exchanges = new ArrayList<>();
 
     public EcbResponse(Document apiResponse) {
-        this.parseResponse(apiResponse);
-    }
-
-    private void parseResponse(Document response) {
-        NodeList nodeList = response.getFirstChild().getChildNodes();
+        NodeList nodeList = apiResponse.getFirstChild().getChildNodes();
+        String subject = null;
+        String sender = null;
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -29,11 +27,11 @@ public class EcbResponse {
 
             switch (element.getTagName()) {
                 case "gesmes:subject":
-                    this.subject = element.getTextContent();
+                    subject = element.getTextContent();
                     break;
 
                 case "gesmes:Sender":
-                    this.sender = element.getTextContent();
+                    sender = element.getTextContent();
                     break;
 
                 case "Cube":
@@ -50,6 +48,9 @@ public class EcbResponse {
                     break;
             }
         }
+
+        this.sender = sender;
+        this.subject = subject;
     }
 
     public String getSubject() {

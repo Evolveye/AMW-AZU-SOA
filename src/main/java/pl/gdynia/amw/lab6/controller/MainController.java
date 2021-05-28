@@ -8,6 +8,8 @@ import pl.gdynia.amw.lab6.model.Rate;
 import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
 import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
 
+import java.math.BigDecimal;
+
 @RestController
 public class MainController {
     @Autowired
@@ -24,7 +26,7 @@ public class MainController {
             throw new WrongCurrencyException(currencyFromUpper);
         }
 
-        float rate = repo.calculator.calculateExchange(rateObj);
+        BigDecimal rate = repo.calculator.calculateExchange(rateObj);
 
         return ExchangeRateCalcSuccess.newSuccess("EUR",currencyFromUpper, rate);
     }
@@ -46,7 +48,7 @@ public class MainController {
             throw new WrongCurrencyException(currencyFromUpper);
         }
 
-        float rate = repo.calculator.calculateExchange(rateFromObj, rateToObj);
+        BigDecimal rate = repo.calculator.calculateExchange(rateFromObj, rateToObj);
 
         return ExchangeRateCalcSuccess.newSuccess(currencyFromUpper, currencyToUpper, rate);
     }

@@ -10,15 +10,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Exchange {
-    private Date time;
-    private ArrayList<Rate> rates = new ArrayList<>();
+    private final Date time;
+    private final ArrayList<Rate> rates = new ArrayList<>();
 
     public Exchange(Element exchangeElement) {
+        Date time = null;
+
         try {
-            this.time = new SimpleDateFormat("yyyy-MM-dd").parse(exchangeElement.getAttribute("time"));
+            time = new SimpleDateFormat("yyyy-MM-dd").parse(exchangeElement.getAttribute("time"));
         } catch (ParseException e) {
             System.out.println("Date parse error");
         }
+
+        this.time = time;
 
         NodeList rates = exchangeElement.getChildNodes();
 

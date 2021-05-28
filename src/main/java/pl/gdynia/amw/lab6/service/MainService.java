@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import pl.gdynia.amw.lab6.ApiCommunicator;
 import pl.gdynia.amw.lab6.ExchangeCalculator;
+import pl.gdynia.amw.lab6.Suppress;
 import pl.gdynia.amw.lab6.model.EcbResponse;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,6 +32,7 @@ public class MainService {
 		}
     }
 
+    @Suppress
     public EcbResponse getLastApiResponse() {
     	return this.apiCommunicator.getLastApiResponse();
 	}
