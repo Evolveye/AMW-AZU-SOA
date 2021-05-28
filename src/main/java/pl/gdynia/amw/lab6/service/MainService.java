@@ -1,19 +1,21 @@
-package pl.gdynia.amw.lab6;
+package pl.gdynia.amw.lab6.service;
 
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import pl.gdynia.amw.lab6.apiElement.EcbResponse;
+import pl.gdynia.amw.lab6.ApiCommunicator;
+import pl.gdynia.amw.lab6.ExchangeCalculator;
+import pl.gdynia.amw.lab6.model.EcbResponse;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 @Service
-public class Repository {
+public class MainService {
     public ApiCommunicator apiCommunicator;
     public ExchangeCalculator calculator;
 
-    public Repository() {
+    public MainService() {
     	this.calculator = new ExchangeCalculator();
 
 		try {

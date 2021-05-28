@@ -1,16 +1,17 @@
-package pl.gdynia.amw.lab6;
+package pl.gdynia.amw.lab6.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.gdynia.amw.lab6.apiElement.Exchange;
-import pl.gdynia.amw.lab6.apiElement.Rate;
+import pl.gdynia.amw.lab6.service.MainService;
+import pl.gdynia.amw.lab6.model.Exchange;
+import pl.gdynia.amw.lab6.model.Rate;
 import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
 import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
 
 @RestController
-public class Controller {
+public class MainController {
     @Autowired
-    Repository repo;
+    MainService repo;
 
     @GetMapping("/exchange/rate/{currencyTo}")
     ExchangeRateCalcSuccess exchangeRate(@PathVariable String currencyTo) {

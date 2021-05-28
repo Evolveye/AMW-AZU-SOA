@@ -1,4 +1,4 @@
-package pl.gdynia.amw.lab6;
+package pl.gdynia.amw.lab6.controller;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -1,4 +1,4 @@
-package pl.gdynia.amw.lab6.apiElement;
+package pl.gdynia.amw.lab6.model;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

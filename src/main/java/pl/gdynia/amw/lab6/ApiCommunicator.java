@@ -2,7 +2,7 @@ package pl.gdynia.amw.lab6;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import pl.gdynia.amw.lab6.apiElement.EcbResponse;
+import pl.gdynia.amw.lab6.model.EcbResponse;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
