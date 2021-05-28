@@ -14,6 +14,12 @@ public class EcbResponse {
     private final ArrayList<Exchange> exchanges = new ArrayList<>();
 
     public EcbResponse(Document apiResponse) {
+        if (apiResponse == null) {
+            this.sender = null;
+            this.subject = null;
+            return;
+        }
+
         NodeList nodeList = apiResponse.getFirstChild().getChildNodes();
         String subject = null;
         String sender = null;
