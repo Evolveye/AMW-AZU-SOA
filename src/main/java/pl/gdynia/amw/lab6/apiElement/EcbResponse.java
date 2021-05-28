@@ -1,4 +1,4 @@
-package pl.gdynia.amw.lab6.bankApiElements;
+package pl.gdynia.amw.lab6.apiElement;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,12 +8,12 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ApiResponse {
+public class EcbResponse {
     private String subject;
     private String sender;
     private ArrayList<Exchange> exchanges = new ArrayList<>();
 
-    public ApiResponse(Document apiResponse) {
+    public EcbResponse(Document apiResponse) {
         this.parseResponse(apiResponse);
     }
 

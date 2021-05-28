@@ -1,4 +1,4 @@
-package pl.gdynia.amw.lab6.bankApiElements;
+package pl.gdynia.amw.lab6.apiElement;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -38,6 +38,8 @@ public class Exchange {
     }
 
     public Rate getRateByCurrency(String currency) {
+        if (currency.equals("EUR")) return new Rate("EUR", 1);
+
         for (Rate rate : this.rates) {
             if (rate.getCurrency().equals(currency)) return rate;
         }

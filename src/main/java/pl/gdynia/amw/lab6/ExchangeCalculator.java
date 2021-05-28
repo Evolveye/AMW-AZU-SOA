@@ -1,10 +1,10 @@
 package pl.gdynia.amw.lab6;
 
-import pl.gdynia.amw.lab6.bankApiElements.Rate;
+import pl.gdynia.amw.lab6.apiElement.Rate;
 
 public class ExchangeCalculator {
     public float calculateExchange(Rate rateFrom, Rate rateTo) {
-        return 0;
+        return rateTo.getRate() / rateFrom.getRate();
     }
 
     public float calculateExchange(Rate rate) {

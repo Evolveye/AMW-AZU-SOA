@@ -1,21 +1,52 @@
 package pl.gdynia.amw.lab6;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.gdynia.amw.lab6.bankApiElements.Exchange;
-import pl.gdynia.amw.lab6.response.ExchangeSuccess;
+import org.springframework.web.bind.annotation.*;
+import pl.gdynia.amw.lab6.apiElement.Exchange;
+import pl.gdynia.amw.lab6.apiElement.Rate;
+import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
+import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
 
 @RestController
 public class Controller {
     @Autowired
     Repository repo;
 
-    @GetMapping("/week")
-    ExchangeSuccess getLastWeek() {
-        Exchange exchange = repo.apiCommunicator.getLastApiResponse().getLastExchange();
-        float rate = repo.calculator.calculateExchange(exchange.getRateByCurrency("PLN"));
+    @GetMapping("/exchange/rate/{currencyTo}")
+    ExchangeRateCalcSuccess exchangeRate(@PathVariable String currencyTo) {
+        String currencyFromUpper = currencyTo.toUpperCase();
 
-        return new ExchangeSuccess("X", "X", rate);
+        Exchange exchange = repo.apiCommunicator.getLastApiResponse().getLastExchange();
+        Rate rateObj = exchange.getRateByCurrency(currencyFromUpper);
+
+        if (rateObj == null) {
+            throw new WrongCurrencyException(currencyFromUpper);
+        }
+
+        float rate = repo.calculator.calculateExchange(rateObj);
+
+        return ExchangeRateCalcSuccess.newSuccess("EUR",currencyFromUpper, rate);
+    }
+
+    @GetMapping("/exchange/rate/{currencyFrom}/{currencyTo}")
+    ExchangeRateCalcSuccess exchangeRate(@PathVariable String currencyFrom, @PathVariable String currencyTo) {
+        String currencyFromUpper = currencyFrom.toUpperCase();
+        String currencyToUpper = currencyTo.toUpperCase();
+
+        Exchange exchange = repo.apiCommunicator.getLastApiResponse().getLastExchange();
+        Rate rateFromObj = exchange.getRateByCurrency(currencyFromUpper);
+        Rate rateToObj = exchange.getRateByCurrency(currencyToUpper);
+
+        if (rateFromObj == null) {
+            throw new WrongCurrencyException(currencyFromUpper);
+        }
+
+        if (rateToObj == null) {
+            throw new WrongCurrencyException(currencyFromUpper);
+        }
+
+        float rate = repo.calculator.calculateExchange(rateFromObj, rateToObj);
+
+        return ExchangeRateCalcSuccess.newSuccess(currencyFromUpper, currencyToUpper, rate);
     }
 }

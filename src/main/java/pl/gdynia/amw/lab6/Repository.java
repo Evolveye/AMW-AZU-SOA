@@ -2,7 +2,7 @@ package pl.gdynia.amw.lab6;
 
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
-import pl.gdynia.amw.lab6.bankApiElements.ApiResponse;
+import pl.gdynia.amw.lab6.apiElement.EcbResponse;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class Repository {
 		}
     }
 
-    public ApiResponse getLastApiResponse() {
+    public EcbResponse getLastApiResponse() {
     	return this.apiCommunicator.getLastApiResponse();
 	}
 }
