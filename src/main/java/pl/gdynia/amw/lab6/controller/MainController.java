@@ -49,7 +49,7 @@ public class MainController {
         }
 
         if (rateToObj == null) {
-            throw new WrongCurrencyException(currencyFromUpper);
+            throw new WrongCurrencyException(currencyToUpper);
         }
 
         BigDecimal rate = calculator.calculateExchange(rateFromObj, rateToObj);
