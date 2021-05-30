@@ -31,7 +31,6 @@ public class EcbCommunicatorService {
         }
 
         this.builder = builder;
-        System.out.println("EcbCommunicatorService constructor");
     }
 
     @Scheduled(fixedDelay = 1000 * 60 * 60 * DELAY_IN_HOURS)
@@ -40,8 +39,6 @@ public class EcbCommunicatorService {
     }
 
     public Document fetchApi() {
-        System.out.println("ECB fetching");
-
         try {
             return builder.parse(API_URI);
         } catch (MalformedURLException e) {
