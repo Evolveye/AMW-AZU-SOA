@@ -6,12 +6,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import pl.gdynia.amw.lab6.model.EcbResponse;
 
-import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
