@@ -1,5 +1,6 @@
 package pl.gdynia.amw.lab6.model;
 
+import org.springframework.data.annotation.Id;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Exchange {
+    @Id
+    public String id;
     private final Date time;
     private final ArrayList<Rate> rates = new ArrayList<>();
 
@@ -31,6 +34,10 @@ public class Exchange {
 
             if (node.getNodeType() == Node.ELEMENT_NODE) this.rates.add(new Rate((Element) node));
         }
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public Date getTime() {

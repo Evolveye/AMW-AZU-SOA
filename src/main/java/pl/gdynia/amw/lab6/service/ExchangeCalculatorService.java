@@ -8,8 +8,6 @@ import java.math.RoundingMode;
 
 @Service
 public class ExchangeCalculatorService {
-    private static ExchangeCalculatorService instance;
-
     public BigDecimal calculateExchange(Rate rateFrom, Rate rateTo) {
         return rateTo.getRate().divide( rateFrom.getRate(), RoundingMode.UP);
     }

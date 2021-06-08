@@ -1,18 +1,24 @@
 package pl.gdynia.amw.lab6.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import pl.gdynia.amw.lab6.model.Exchange;
 import pl.gdynia.amw.lab6.model.Rate;
 import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
 import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
 import pl.gdynia.amw.lab6.service.EcbCommunicatorService;
 import pl.gdynia.amw.lab6.service.ExchangeCalculatorService;
+import pl.gdynia.amw.lab6.service.ExchangeRepository;
 
 import java.math.BigDecimal;
 
 @RestController
 public class MainController {
+    @Autowired
+    ExchangeRepository exchangeRepository;
+
     @Autowired
     ExchangeCalculatorService calculator;
 
@@ -22,6 +28,8 @@ public class MainController {
     @GetMapping("/exchange/rate/{currencyTo}")
     ExchangeRateCalcSuccess exchangeRate(@PathVariable String currencyTo) {
         String currencyFromUpper = currencyTo.toUpperCase();
+
+        System.out.println(exchangeRepository.count());
 
         Exchange exchange = ecbCommunicator.getLastApiResponse().getLastExchange();
         Rate rateObj = exchange.getRateByCurrency(currencyFromUpper);
