@@ -78,28 +78,8 @@ public class EcbResponse {
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(date);
 
-        int i = 10;
-
         for (Exchange exchange : this.exchanges) {
-            if (i-- < 0) return null;
-
             exchangeCalendar.setTime(exchange.getTime());
-
-            System.out.println(
-                    exchange.getTime()
-                    + "  |  "
-                    + dateCalendar.get(Calendar.YEAR)
-                    + "  "
-                    + dateCalendar.get(Calendar.MONTH)
-                    + "  "
-                    + dateCalendar.get(Calendar.DAY_OF_MONTH)
-                    + "  |  "
-                    + exchangeCalendar.get(Calendar.YEAR)
-                    + "  "
-                    + exchangeCalendar.get(Calendar.MONTH)
-                    + "  "
-                    + exchangeCalendar.get(Calendar.DAY_OF_MONTH)
-            );
 
             if (exchangeCalendar.get(Calendar.YEAR) > dateCalendar.get(Calendar.YEAR)) continue;
             if (exchangeCalendar.get(Calendar.MONTH) > dateCalendar.get(Calendar.MONTH)) continue;

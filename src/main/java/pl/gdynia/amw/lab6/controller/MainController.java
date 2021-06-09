@@ -18,10 +18,11 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 @RestController
 public class MainController {
-//    Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+    Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
@@ -44,12 +45,14 @@ public class MainController {
         String currencyFromUpper = currencyFrom.toUpperCase();
         String currencyToUpper = currencyTo.toUpperCase();
 
-        Date parsedDate = null;
+        Date parsedDate;
         Exchange exchange;
 
         if (date == null) {
             exchange = ecbCommunicator.getLastApiResponse().getLastExchange();
         } else {
+            if (!datePattern.matcher(date).matches()) throw new WrongDateFormatException(date);
+
             try {
                 parsedDate = simpleDateFormat.parse(date);
                 exchange = ecbCommunicator.getLastApiResponse().getExchange(parsedDate);
@@ -63,13 +66,8 @@ public class MainController {
         Rate rateFromObj = exchange.getRateByCurrency(currencyFromUpper);
         Rate rateToObj = exchange.getRateByCurrency(currencyToUpper);
 
-        if (rateFromObj == null) {
-            throw new WrongCurrencyException(currencyFromUpper);
-        }
-
-        if (rateToObj == null) {
-            throw new WrongCurrencyException(currencyToUpper);
-        }
+        if (rateFromObj == null) throw new WrongCurrencyException(currencyFromUpper);
+        if (rateToObj == null) throw new WrongCurrencyException(currencyToUpper);
 
         BigDecimal rate = calculator.calculateExchange(rateFromObj, rateToObj);
 

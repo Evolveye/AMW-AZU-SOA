@@ -18,7 +18,7 @@ public class EcbCommunicatorService {
     @Autowired
     DatabaseService databaseService;
 
-    private static final String API_URI = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml?bcd0938de3675ce9631d23856979fd68"; // application.properties
+    private static final String API_URI = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml?bcd0938de3675ce9631d23856979fd68"; // application.yml
     private static final int DELAY_IN_HOURS = 1;
     private final DocumentBuilder builder;
     private EcbResponse lastApiResponse;

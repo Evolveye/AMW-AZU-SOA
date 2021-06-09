@@ -1,4 +1,4 @@
-package pl.gdynia.amw.lab6.response.success;
+package pl.gdynia.amw.lab6.response;
 
 import pl.gdynia.amw.lab6.Suppress;
 

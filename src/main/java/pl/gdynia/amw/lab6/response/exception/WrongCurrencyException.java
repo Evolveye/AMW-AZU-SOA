@@ -2,10 +2,11 @@ package pl.gdynia.amw.lab6.response.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import pl.gdynia.amw.lab6.response.ResponseException;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Bla bla bla")
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Wrong currency")
 public class WrongCurrencyException extends ResponseException {
-    public WrongCurrencyException(String wrongCurrency) {
-        super(400, "We don't have data about currency \"" + wrongCurrency + "\"");
+    public WrongCurrencyException(String date) {
+        super(401, date);
     }
 }

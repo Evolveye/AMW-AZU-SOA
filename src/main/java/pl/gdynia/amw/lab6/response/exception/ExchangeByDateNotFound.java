@@ -2,10 +2,11 @@ package pl.gdynia.amw.lab6.response.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import pl.gdynia.amw.lab6.response.ResponseException;
 
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Bla bla bla")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Exchange by date not found")
 public class ExchangeByDateNotFound extends ResponseException {
     public ExchangeByDateNotFound(String date) {
-        super(400, "Exchange by provided date (" + date + ") not found.");
+        super(400, date);
     }
 }

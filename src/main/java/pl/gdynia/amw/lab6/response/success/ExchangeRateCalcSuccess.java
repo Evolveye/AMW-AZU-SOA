@@ -1,5 +1,7 @@
 package pl.gdynia.amw.lab6.response.success;
 
+import pl.gdynia.amw.lab6.response.ResponseSuccess;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
