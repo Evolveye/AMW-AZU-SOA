@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class EcbResponse {
@@ -72,8 +73,39 @@ public class EcbResponse {
     }
 
     public Exchange getExchange(Date date) {
+        Calendar exchangeCalendar = Calendar.getInstance();
+
+        Calendar dateCalendar = Calendar.getInstance();
+        dateCalendar.setTime(date);
+
+        int i = 10;
+
         for (Exchange exchange : this.exchanges) {
-            if (exchange.getTime() == date) return exchange;
+            if (i-- < 0) return null;
+
+            exchangeCalendar.setTime(exchange.getTime());
+
+            System.out.println(
+                    exchange.getTime()
+                    + "  |  "
+                    + dateCalendar.get(Calendar.YEAR)
+                    + "  "
+                    + dateCalendar.get(Calendar.MONTH)
+                    + "  "
+                    + dateCalendar.get(Calendar.DAY_OF_MONTH)
+                    + "  |  "
+                    + exchangeCalendar.get(Calendar.YEAR)
+                    + "  "
+                    + exchangeCalendar.get(Calendar.MONTH)
+                    + "  "
+                    + exchangeCalendar.get(Calendar.DAY_OF_MONTH)
+            );
+
+            if (exchangeCalendar.get(Calendar.YEAR) > dateCalendar.get(Calendar.YEAR)) continue;
+            if (exchangeCalendar.get(Calendar.MONTH) > dateCalendar.get(Calendar.MONTH)) continue;
+            if (exchangeCalendar.get(Calendar.DAY_OF_MONTH) > dateCalendar.get(Calendar.DAY_OF_MONTH)) continue;
+
+            return exchange;
         }
 
         return null;

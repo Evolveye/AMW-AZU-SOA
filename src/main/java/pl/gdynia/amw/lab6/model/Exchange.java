@@ -57,4 +57,12 @@ public class Exchange {
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Exchange{" +
+                "time=" + time +
+                ", rates=" + rates.size() +
+                '}';
+    }
 }
