@@ -10,15 +10,11 @@ import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
 import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
 import pl.gdynia.amw.lab6.service.EcbCommunicatorService;
 import pl.gdynia.amw.lab6.service.ExchangeCalculatorService;
-import pl.gdynia.amw.lab6.service.ExchangeRepository;
 
 import java.math.BigDecimal;
 
 @RestController
 public class MainController {
-    @Autowired
-    ExchangeRepository exchangeRepository;
-
     @Autowired
     ExchangeCalculatorService calculator;
 
@@ -28,8 +24,6 @@ public class MainController {
     @GetMapping("/exchange/rate/{currencyTo}")
     ExchangeRateCalcSuccess exchangeRate(@PathVariable String currencyTo) {
         String currencyFromUpper = currencyTo.toUpperCase();
-
-        System.out.println(exchangeRepository.count());
 
         Exchange exchange = ecbCommunicator.getLastApiResponse().getLastExchange();
         Rate rateObj = exchange.getRateByCurrency(currencyFromUpper);

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import pl.gdynia.amw.lab6.model.EcbResponse;
-import pl.gdynia.amw.lab6.model.Exchange;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,7 +16,7 @@ import java.net.MalformedURLException;
 @Service
 public class EcbCommunicatorService {
     @Autowired
-    ExchangeRepository exchangeRepository;
+    DatabaseService databaseService;
 
     private static final String API_URI = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml?bcd0938de3675ce9631d23856979fd68"; // application.properties
     private static final int DELAY_IN_HOURS = 1;
@@ -41,11 +40,8 @@ public class EcbCommunicatorService {
     public void interval() {
         this.lastApiResponse = new EcbResponse(this.fetchApi());
 
-        exchangeRepository.deleteAll();
-
-        for (Exchange exchange : this.lastApiResponse.getExchanges()) {
-            exchangeRepository.save(exchange);
-        }
+        databaseService.deleteAllExchanges();
+        databaseService.saveExchanges(this.lastApiResponse.getExchanges());
     }
 
     public Document fetchApi() {
