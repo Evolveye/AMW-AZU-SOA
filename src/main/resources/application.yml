@@ -1,7 +1,7 @@
 
 app:
   ecbApiUri: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml?bcd0938de3675ce9631d23856979fd68
-  intervalCronDelay: "*/1 * * * * *"
+  intervalCronDelay: "*/59 * * * * *"
   codeMessageMap:
     400: Exchange by provided date (%s) not found.
     401: We don't have data about currency %s.

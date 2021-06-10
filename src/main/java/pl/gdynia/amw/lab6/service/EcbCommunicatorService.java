@@ -1,5 +1,7 @@
 package pl.gdynia.amw.lab6.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,6 +28,8 @@ public class EcbCommunicatorService {
     private DocumentBuilder builder;
     private EcbResponse lastApiResponse;
 
+    private Logger logger = LoggerFactory.getLogger("EcbCommunicatorServiceLogger");
+
     @PostConstruct
     public void init() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -38,11 +42,15 @@ public class EcbCommunicatorService {
         }
 
         this.builder = builder;
+
+        interval();
     }
 
     @Scheduled(cron = "${app.intervalCronDelay}")
     public void interval() {
+        logger.info("API fetching...");
         this.lastApiResponse = new EcbResponse(this.fetchApi());
+        logger.info("API fetching done");
 
         databaseService.deleteAllExchanges();
         databaseService.saveExchanges(this.lastApiResponse.getExchanges());
@@ -52,11 +60,11 @@ public class EcbCommunicatorService {
         try {
             return builder.parse(API_URI);
         } catch (MalformedURLException e) {
-            System.out.println("\nMalformedURLException\n");
+            logger.error(e.getMessage());
         } catch (IOException e) {
-            System.out.println("\nIOException\n");
+            logger.error(e.getMessage());
         } catch (SAXException e) {
-            System.out.println("\nSAXException\n");
+            logger.error(e.getMessage());
         }
 
         return null;

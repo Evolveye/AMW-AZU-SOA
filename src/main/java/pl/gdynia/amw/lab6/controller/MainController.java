@@ -1,5 +1,7 @@
 package pl.gdynia.amw.lab6.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,8 @@ public class MainController {
     Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    private Logger logger = LoggerFactory.getLogger("MainControllerLogger");
+
     @Autowired
     ExchangeCalculatorService calculator;
 
@@ -47,6 +51,8 @@ public class MainController {
 
         Date parsedDate;
         Exchange exchange;
+
+        logger.info(String.format("GET /exchange/rate/:currencyFrom/:currencyTo?date { currencyFrom=%s, currencyTo=%s, date=%s }",currencyFromUpper,currencyToUpper,date));
 
         if (date == null) {
             exchange = ecbCommunicator.getLastApiResponse().getLastExchange();
