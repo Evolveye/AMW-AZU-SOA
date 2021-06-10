@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.gdynia.amw.lab6.model.Exchange;
 import pl.gdynia.amw.lab6.model.Rate;
 import pl.gdynia.amw.lab6.response.exception.ExchangeByDateNotFound;
+import pl.gdynia.amw.lab6.response.exception.ExchangeNotFoundException;
 import pl.gdynia.amw.lab6.response.exception.WrongCurrencyException;
 import pl.gdynia.amw.lab6.response.exception.WrongDateFormatException;
 import pl.gdynia.amw.lab6.response.success.ExchangeRateCalcSuccess;
@@ -27,7 +28,7 @@ public class MainController {
     Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    private Logger logger = LoggerFactory.getLogger("MainControllerLogger");
+    private final Logger logger = LoggerFactory.getLogger("MainControllerLogger");
 
     @Autowired
     ExchangeCalculatorService calculator;
@@ -68,6 +69,8 @@ public class MainController {
                 throw new WrongDateFormatException(date);
             }
         }
+
+        if (exchange == null) throw new ExchangeNotFoundException();
 
         Rate rateFromObj = exchange.getRateByCurrency(currencyFromUpper);
         Rate rateToObj = exchange.getRateByCurrency(currencyToUpper);

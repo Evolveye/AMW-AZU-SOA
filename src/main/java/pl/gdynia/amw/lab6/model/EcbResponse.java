@@ -59,6 +59,11 @@ public class EcbResponse {
         this.sender = sender;
         this.subject = subject;
     }
+    public EcbResponse(ArrayList<Exchange> exchanges) {
+        this.sender = null;
+        this.subject = null;
+        this.exchanges.addAll(exchanges);
+    }
 
     public String getSubject() {
         return this.subject;
@@ -92,6 +97,8 @@ public class EcbResponse {
     }
 
     public Exchange getLastExchange() {
-        return this.exchanges.get(0);
+        if (this.exchanges.size() > 0) return this.exchanges.get(0);
+
+        return null;
     }
 }

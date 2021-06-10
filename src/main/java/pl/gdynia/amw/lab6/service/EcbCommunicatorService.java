@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import pl.gdynia.amw.lab6.model.EcbResponse;
+import pl.gdynia.amw.lab6.model.Exchange;
 
 import javax.annotation.PostConstruct;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 @Service
 public class EcbCommunicatorService {
@@ -42,6 +44,7 @@ public class EcbCommunicatorService {
         }
 
         this.builder = builder;
+        this.lastApiResponse = new EcbResponse(databaseService.getExchanges());
 
         interval();
     }
@@ -49,23 +52,32 @@ public class EcbCommunicatorService {
     @Scheduled(cron = "${app.intervalCronDelay}")
     public void interval() {
         logger.info("API fetching...");
-        this.lastApiResponse = new EcbResponse(this.fetchApi());
+
+        Document document = this.fetchApi();
+
+        if (document == null) {
+            logger.warn("API fetching failure");
+            return;
+        }
+
         logger.info("API fetching done");
+
+        this.lastApiResponse = new EcbResponse(document);
 
         databaseService.deleteAllExchanges();
         databaseService.saveExchanges(this.lastApiResponse.getExchanges());
     }
 
     public Document fetchApi() {
-        try {
-            return builder.parse(API_URI);
-        } catch (MalformedURLException e) {
-            logger.error(e.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        } catch (SAXException e) {
-            logger.error(e.getMessage());
-        }
+//        try {
+//            return builder.parse(API_URI);
+//        } catch (MalformedURLException e) {
+//            logger.error(e.getMessage());
+//        } catch (IOException e) {
+//            logger.error(e.getMessage());
+//        } catch (SAXException e) {
+//            logger.error(e.getMessage());
+//        }
 
         return null;
     }

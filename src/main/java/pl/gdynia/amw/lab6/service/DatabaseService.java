@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.gdynia.amw.lab6.model.Exchange;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,5 +24,9 @@ public class DatabaseService {
 
     public long exchangesCount() {
         return exchangeRepository.count();
+    }
+
+    public ArrayList<Exchange> getExchanges() {
+        return new ArrayList<>(exchangeRepository.findAll());
     }
 }

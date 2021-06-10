@@ -6,3 +6,4 @@ app:
     400: Exchange by provided date (%s) not found.
     401: We don't have data about currency %s.
     402: "You passed wrong date format: %s. It should match \"YYYY-MM-DD\"."
+    403: Exchange not found

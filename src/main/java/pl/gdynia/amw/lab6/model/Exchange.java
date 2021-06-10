@@ -9,15 +9,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Exchange {
     @Id
     public String id;
-    private final Date time;
-    private final ArrayList<Rate> rates = new ArrayList<>();
+    private Date time;
+    private ArrayList<Rate> rates;
 
     public Exchange(Element exchangeElement) {
         Date time = null;
+
+        rates = new ArrayList<>();
 
         try {
             time = new SimpleDateFormat("yyyy-MM-dd").parse(exchangeElement.getAttribute("time"));
@@ -35,17 +38,24 @@ public class Exchange {
             if (node.getNodeType() == Node.ELEMENT_NODE) this.rates.add(new Rate((Element) node));
         }
     }
+    public Exchange() {}
 
     public String getId() {
         return this.id;
     }
 
+    public void setTime(Date time) {
+        this.time = time;
+    }
     public Date getTime() {
-        return this.time;
+        return time;
     }
 
+    public void setRates(List<Rate> rates) {
+        this.rates = new ArrayList<>(rates);
+    }
     public ArrayList<Rate> getRates() {
-        return this.rates;
+        return rates;
     }
 
     public Rate getRateByCurrency(String currency) {
