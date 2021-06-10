@@ -69,15 +69,11 @@ public class EcbCommunicatorService {
     }
 
     public Document fetchApi() {
-//        try {
-//            return builder.parse(API_URI);
-//        } catch (MalformedURLException e) {
-//            logger.error(e.getMessage());
-//        } catch (IOException e) {
-//            logger.error(e.getMessage());
-//        } catch (SAXException e) {
-//            logger.error(e.getMessage());
-//        }
+        try {
+            return builder.parse(API_URI);
+        } catch (IOException | SAXException e) {
+            logger.error(e.toString());
+        }
 
         return null;
     }
