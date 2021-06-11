@@ -25,24 +25,24 @@ import java.util.regex.Pattern;
 
 @RestController
 public class MainController {
-    Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private final Logger logger = LoggerFactory.getLogger("MainControllerLogger");
 
     @Autowired
-    ExchangeCalculatorService calculator;
+    private ExchangeCalculatorService calculator;
 
     @Autowired
-    EcbCommunicatorService ecbCommunicator;
+    private EcbCommunicatorService ecbCommunicator;
 
     @GetMapping("/exchange/rate/{currencyTo}")
-    ExchangeRateCalcSuccess exchangeRateEurToX(@PathVariable String currencyTo, @RequestParam(name = "date", required = false) String date) {
+    public ExchangeRateCalcSuccess exchangeRateEurToX(@PathVariable String currencyTo, @RequestParam(name = "date", required = false) String date) {
         return exchangeRate("EUR", currencyTo, date);
     }
 
     @GetMapping("/exchange/rate/{currencyFrom}/{currencyTo}")
-    ExchangeRateCalcSuccess exchangeRateXToY(@PathVariable String currencyFrom, @PathVariable String currencyTo, @RequestParam(name = "date", required = false) String date) {
+    public ExchangeRateCalcSuccess exchangeRateXToY(@PathVariable String currencyFrom, @PathVariable String currencyTo, @RequestParam(name = "date", required = false) String date) {
         return exchangeRate(currencyFrom, currencyTo, date);
     }
 

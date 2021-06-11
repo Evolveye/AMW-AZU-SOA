@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @Service
 public class EcbCommunicatorService {
     @Autowired
-    DatabaseService databaseService;
+    private DatabaseService databaseService;
 
     @Value("${app.ecbApiUri:test}")
     private String API_URI;
@@ -72,7 +72,7 @@ public class EcbCommunicatorService {
         try {
             return builder.parse(API_URI);
         } catch (IOException | SAXException e) {
-            logger.error(e.toString());
+            logger.error("API fetching error", e);
         }
 
         return null;

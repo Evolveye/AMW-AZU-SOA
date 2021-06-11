@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class DatabaseService {
     @Autowired
-    ExchangeRepository exchangeRepository;
+    private ExchangeRepository exchangeRepository;
 
     public void saveExchanges(List<Exchange> exchanges) {
         for (Exchange exchange : exchanges) {
